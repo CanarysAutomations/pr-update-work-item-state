@@ -19,21 +19,20 @@ async function main () {
 
 async function getworkitemid (env) {
 
-    const requesturl = "https://api.github.com/repos/"+env.gh_repo_owner+"/"+env.gh_repo+"/pulls/"+env.pull_number;    
-    const response = await fetch (requesturl, {
-        method: 'get', 
-        headers:new Headers({
-            'Authorization': 'Basic ' + btoa('aa:bb47b59cad465ac135a7120ac79f968d1ec510a8')
-    })
-})
+    let h = new Headers();
+    let auth = 'token ' + env.gh_token;
+    h.append ('Authorization', auth );
 
-    console.log(requesturl);
-    const result =await response.json()
+    const requesturl = "https://api.github.com/repos/"+env.gh_repo_owner+"/"+env.gh_repo+"/pulls/"+env.pull_number;    
+    const response= await fetch (requesturl, {
+        method: 'GET', 
+        headers:h
+    })
+    const result = await response.json();
     console.log(result);
     var pulldetails = result.body;
     console.log(pulldetails);
     var workItemId = pulldetails.substr(4,3);
-    
     update(workItemId,vm.env);
     
     }
@@ -76,7 +75,8 @@ function getValuesFromPayload(env)
             wit_id: env.ado_workitemid != undefined ? env.ado_workitemid :"",
             ghrepo_owner: env.gh_repo_owner != undefined ? env.gh_repo_owner :"",
             ghrepo: env.gh_repo != undefined ? env.gh_repo :"",
-            pull_number: env.pull_number != undefined ? env.pull_number :""
+            pull_number: env.pull_number != undefined ? env.pull_number :"",
+	    ghtoken: env.gh_token != undefined ? env.gh_token :""
         }
     }
 }
