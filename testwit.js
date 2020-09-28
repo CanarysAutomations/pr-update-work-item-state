@@ -1,6 +1,7 @@
 
 const azdev = require(`azure-devops-node-api`);
 const github = require(`@actions/github`);
+const fetch = require("node-fetch");
 
 
 main();
@@ -9,11 +10,26 @@ async function main () {
     let vm = [];
 
     vm = getValuesFromPayload(env);
-	
-	update(vm,vm.env);
+
+	getworkitemid(env);
+    
 }
 
-async function update(id,env) {
+async function getworkitemid (env) {
+
+    const requesturl = "https://api.github.com/repos/"+env.gh_repo_owner+"/"+env.gh_repo+"/pulls/"+env.pull_number;    
+    const response = await fetch (requesturl)
+    const result =await response.json()
+    
+    var pulldetails = result.body;
+    
+    var workItemId = pulldetails.substr(4,3);
+    
+    update(workItemId,vm.env);
+    
+    }
+
+async function update(workItemId,env) {
     let patchDocument = [];
 
     patchDocument.push({
@@ -30,7 +46,7 @@ async function update(id,env) {
 	workItemSaveResult = await client.updateWorkItem(
 			(customHeaders = []),
 			(document = patchDocument),
-			(id = vm.env.wit_id),
+			(id = workItemId),
 			(project = env.project),
 			(validateOnly = false)
 			);
@@ -48,7 +64,10 @@ function getValuesFromPayload(env)
             adoToken: env.ado_token != undefined ? env.ado_token : "",
             project: env.ado_project != undefined ? env.ado_project : "",
             newstate: env.ado_newstate != undefined ? env.ado_newstate : "",
-            wit_id: env.ado_workitemid != undefined ? env.ado_workitemid :""
+            wit_id: env.ado_workitemid != undefined ? env.ado_workitemid :"",
+            ghrepo_owner: env.gh_repo_owner != undefined ? env.gh_repo_owner :"",
+            ghrepo: env.gh_repo != undefined ? env.gh_repo :"",
+            pull_number: env.pull_number != undefined ? env.pull_number :""
         }
     }
 }
