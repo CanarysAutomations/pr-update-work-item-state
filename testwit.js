@@ -12,7 +12,7 @@ async function main () {
 
     vm = getValuesFromPayload(env);
 
-	getworkitemid(env);
+	getworkitemid(vm.env);
     
 }
 
