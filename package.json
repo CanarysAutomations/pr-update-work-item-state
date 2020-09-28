@@ -10,6 +10,7 @@
   "dependencies": {
     "@actions/core": "^1.2.6",
     "@actions/github": "^4.0.0",
+    "@octokit/endpoint": "^5.5.3",
     "azure-devops-node-api": "^10.1.1",
     "is-plain-object": "^3.0.0",
     "node-fetch": "^2.6.1",
