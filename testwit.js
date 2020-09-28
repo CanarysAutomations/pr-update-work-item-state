@@ -23,7 +23,7 @@ async function getworkitemid (env) {
     const response = await fetch (requesturl, {
         method: 'get', 
         headers:{
-            'Authorization': 'Basic ' + btoa('vaishnav-canarys:bb47b59cad465ac135a7120ac79f968d1ec510a8')
+            'Authorization': 'Bearer ' + 'bb47b59cad465ac135a7120ac79f968d1ec510a8'
     }
 })
 
