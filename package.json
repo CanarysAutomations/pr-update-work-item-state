@@ -1,28 +1,26 @@
 {
-  "name": "github-customaction",
-  "version": "1.0.0",
-  "main": "testwit.js",
-  "scripts": {
-    "test": "node testwit.js"
-  },
-  "author": "",
-  "license": "ISC",
-  "dependencies": {
-    "@actions/core": "^1.2.6",
-    "@actions/github": "^4.0.0",
-    "@octokit/endpoint": "^5.5.3",
-    "azure-devops-node-api": "^10.1.1",
-    "is-plain-object": "^3.0.0",
-    "node-fetch": "^2.6.1",
-    "typescript": "^4.0.3"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/CanarysPlayground/github_customaction.git"
-  },
-  "bugs": {
-    "url": "https://github.com/CanarysPlayground/github_customaction/issues"
-  },
-  "homepage": "https://github.com/CanarysPlayground/github_customaction#readme",
-  "description": ""
+	"name": "github_customaction",
+	"version": "1.0.1",
+	"description": "update workitem state on pull request change",
+	"main": "index.js",
+	"scripts": {
+		"test": "echo \"Error: no test specified\" && exit 1"
+	},
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/CanarysPlayground/github_customaction.git"
+	},
+	"keywords": [],
+	"author": "",
+	"license": "ISC",
+	"bugs": {
+		"url": "https://github.com/CanarysPlayground/github_customaction/issues"
+	},
+	"homepage": "https://github.com/CanarysPlayground/github_customaction#readme",
+	"dependencies": {
+		"@actions/core": "^1.2.3",
+		"@actions/github": "^2.1.1",
+		"azure-devops-node-api": "^10.1.0",
+		"node-fetch": "^2.6.1"
+	}
 }
