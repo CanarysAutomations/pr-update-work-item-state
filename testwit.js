@@ -20,6 +20,8 @@ async function getworkitemid (env) {
 
     const requesturl = "https://api.github.com/repos/"+env.gh_repo_owner+"/"+env.gh_repo+"/pulls/"+env.pull_number;    
     const response = await fetch (requesturl)
+
+    console.log(requesturl);
     const result =await response.json()
     
     var pulldetails = result.body;
