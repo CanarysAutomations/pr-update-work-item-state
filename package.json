@@ -1,7 +1,6 @@
 {
   "name": "github-customaction",
   "version": "1.0.0",
-  "description": "",
   "main": "testwit.js",
   "scripts": {
     "test": "node testwit.js"
@@ -13,5 +12,14 @@
     "@actions/github": "^4.0.0",
     "azure-devops-node-api": "^10.1.1",
     "node-fetch": "^2.6.1"
-  }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/CanarysPlayground/github_customaction.git"
+  },
+  "bugs": {
+    "url": "https://github.com/CanarysPlayground/github_customaction/issues"
+  },
+  "homepage": "https://github.com/CanarysPlayground/github_customaction#readme",
+  "description": ""
 }
