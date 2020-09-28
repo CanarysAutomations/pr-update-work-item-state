@@ -1,12 +1,9 @@
-name: "GitHub Issues to Azure DevOps"
-description: "This action will Sync your GitHub Issue to Azure Boards when an Issue is created or updated"
-author: "danhellem"
-branding:
-  icon: "book-open"
-  color: "green"
+name: "Pull requests to ado workitems"
+description: "This action will update work items"
+author: "Canarys Technologies"
 outputs:
   id:
-    description: "id of work item created"
+    description: "Work item state updated"
 runs:
   using: "node12"
   main: "testwit.js"
