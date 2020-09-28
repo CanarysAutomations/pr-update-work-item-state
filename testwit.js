@@ -8,6 +8,7 @@ main();
 async function main () {
   
     let vm = [];
+    const env = process.env
 
     vm = getValuesFromPayload(env);
 
