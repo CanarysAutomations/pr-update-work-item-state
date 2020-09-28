@@ -1,0 +1,16 @@
+{
+  "name": "github-customaction",
+  "version": "1.0.0",
+  "description": "",
+  "main": "testwit.js",
+  "scripts": {
+    "test": "node testwit.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@actions/core": "^1.2.6",
+    "@actions/github": "^4.0.0",
+    "azure-devops-node-api": "^10.1.1"
+  }
+}
