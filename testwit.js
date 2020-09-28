@@ -2,6 +2,7 @@
 const azdev = require(`azure-devops-node-api`);
 const github = require(`@actions/github`);
 const fetch = require("node-fetch");
+const btoa = require('btoa');
 
 
 main();
