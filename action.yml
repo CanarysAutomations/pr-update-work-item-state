@@ -9,4 +9,4 @@ outputs:
     description: "id of work item created"
 runs:
   using: "node12"
-  main: "index.js"
+  main: "testwit.js"
