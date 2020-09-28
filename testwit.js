@@ -23,9 +23,9 @@ async function getworkitemid (env) {
 
     console.log(requesturl);
     const result =await response.json()
-    
+    console.log(result);
     var pulldetails = result.body;
-    
+    console.log(pulldetails);
     var workItemId = pulldetails.substr(4,3);
     
     update(workItemId,vm.env);
