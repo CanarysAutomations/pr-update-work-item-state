@@ -29,6 +29,7 @@ async function getworkitemid (env) {
         method: 'GET', 
         headers:h
     })
+    console.log(requesturl);
     const result = await response.json();
     console.log(result);
     var pulldetails = result.body;
