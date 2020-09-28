@@ -21,9 +21,9 @@ async function getworkitemid (env) {
     const requesturl = "https://api.github.com/repos/"+env.gh_repo_owner+"/"+env.gh_repo+"/pulls/"+env.pull_number;    
     const response = await fetch (requesturl, {
         method: 'get', 
-        headers: new Headers({
+        headers:{
             'Authorization': 'Basic ' + btoa('vaishnav-canarys:bb47b59cad465ac135a7120ac79f968d1ec510a8')
-    })
+    }
 })
 
     console.log(requesturl);
