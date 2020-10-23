@@ -48,7 +48,7 @@ Other Input Parameters
 
 The workItem Id must be prefixed with AB and added as AB#[Workitem Id] in the Pull request Body.
 
-![img](./images/pull-request-window.png)
+![img](./assets/images/pull-request-window.png)
    
 ### Sample WorkFlow File 
 
