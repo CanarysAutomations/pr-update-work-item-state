@@ -8,7 +8,7 @@ global.Headers = fetch.Headers;
 
 
 main();
-async function main () {
+function main () {
   
     const env = process.env
     const context = github.context; 
@@ -17,7 +17,7 @@ async function main () {
 
     vm = getValuesFromPayload(github.context.payload,env);
 
-   if(vm.payload.action == "closed")
+   if(vm.action == "closed")
    {
       getworkitemid(env);
 
