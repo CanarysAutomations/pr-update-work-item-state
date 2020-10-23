@@ -8,7 +8,7 @@ Update work item state in Azure DevOps when the pull request is merged.
 - Azure DevOps PAT
 - GitHub Account
 - GitHub PAT
-- [Install and configure Azure Boards app for GitHub](https://docs.microsoft.com/en-us/azure/devops/boards/github/install-github-app?view=azure-devops)
+- Install the [Azure Boards App](https://docs.microsoft.com/en-us/azure/devops/boards/github/install-github-app?view=azure-devops) from GitHub Marketplace
 
 ## Initial Steps
 
