@@ -18,22 +18,13 @@ async function main () {
 
     vm = getValuesFromPayload(github.context.payload,env);
 
-    switch (vm.action){
-        case "closed":
-            getworkitemid(env);
-            break;
-        case "opened":
-            core.SetFailed();
-            break;
-    }
+   if(vm.payload.action == "closed")
+   {
+      getworkitemid(env);
 
-   // if(vm.payload.action == "closed")
-   // {
-   //     getworkitemid(env);
-
-   // } else {
-   //     core.SetFailed();
-  //  }
+   } else {
+        core.SetFailed();
+   }
     
 }
 
