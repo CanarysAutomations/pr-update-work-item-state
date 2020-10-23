@@ -2,6 +2,14 @@
 
 Update work item state in Azure DevOps when the pull request is merged. 
 
+## What Does it do
+
+When a pull request is merged with the target branch, the action will trigger a workflow to update the linked workitem's state to its next state. For example if the Work Item's state is in ToDo, the workitem's state will change to doing. Will support all & custom workitem processes as well.
+
+## Supported Pull Request States
+
+The pr-update-work-item-state action only supports closed state for now. Support for other pull request states will be added in a future release
+
 ## Prerequisites
 
 - Azure DevOps account
