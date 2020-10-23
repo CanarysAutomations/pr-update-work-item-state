@@ -17,6 +17,8 @@ function main () {
 
     vm = getValuesFromPayload(github.context.payload,env);
 
+    console.log(vm);
+
    if(vm.action == "closed")
    {
       getworkitemid(vm.env);
@@ -75,7 +77,6 @@ async function getworkitemandupdate(workItemId,env) {
                         path: "/fields/System.State",
                         value: newstate
                     });
-                
 
                 let workItemSaveResult = null;
                 
