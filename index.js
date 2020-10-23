@@ -89,9 +89,10 @@ async function getworkitemandupdate(workItemId,env) {
                         );
                         
                 return workItemSaveResult;
+                
             }
 
-
+            console.log("Work Item State Updated");
 }
 
 function getValuesFromPayload(payload,env)
