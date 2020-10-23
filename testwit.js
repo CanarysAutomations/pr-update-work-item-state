@@ -12,11 +12,11 @@ async function main () {
     const env = process.env
     const context = github.context; 
 
-    let vm = [];
+    //let vm = [];
 
     vm = getValuesFromPayload(github.context.payload,env);
 
-    if(vm.action == "closed")
+    if(vm.payload.action == "closed")
     {
         getworkitemid(env);
 
@@ -94,7 +94,7 @@ async function getworkitemandupdate(workItemId,env) {
 
 function getValuesFromPayload(payload,env)
 {
-    vm = {
+   var vm = {
         action: payload.action != undefined ? payload.action : "",
 
         env : {
@@ -110,6 +110,8 @@ function getValuesFromPayload(payload,env)
 	        ghtoken: env.gh_token != undefined ? env.gh_token :""
         }
     }
+
+    return vm;
 }
 
 
