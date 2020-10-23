@@ -1,6 +1,9 @@
-name: "Pull requests to ado workitems"
-description: "This action will update work items"
+name: "Update work item state when PR is merged"
+description: "This action will update work item satte in Azure DevOps when the PR is merged"
 author: "Canarys Automations"
+branding:
+  icon: "activity"
+  color: "black"
 outputs:
   id:
     description: "Work item state updated"
