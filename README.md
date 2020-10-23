@@ -33,7 +33,7 @@ The action currently supports **closed** state. Support for other pull request s
 
     - **closedstate**- This Parameter is **required** for the action to check the workitem state. If the target workitem's state is closed, the action will quit. This is to ensure that a closed work item is not linked to a pull request.
 
-    - **gh_repo, gh_repo_owner**- These details are required to get the latest pull request details	
+    - **gh_repo, gh_repo_owner**- To get the latest pull request details	
 
     - **pull_number**- value of this parameter is obtained from the GitHub event **${{github.event.number}}**
 
