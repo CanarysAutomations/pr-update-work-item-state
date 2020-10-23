@@ -1,4 +1,4 @@
-# Update Azure DevOps work item state when PR is merged
+# Update work item state when PR is merged
 
 Update a Azure DevOps work item's state when the pull request is merged with the master branch
 
