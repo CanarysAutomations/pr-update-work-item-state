@@ -1,9 +1,9 @@
 name: "Pull requests to ado workitems"
 description: "This action will update work items"
-author: "Canarys Technologies"
+author: "Canarys Automations"
 outputs:
   id:
     description: "Work item state updated"
 runs:
   using: "node12"
-  main: "testwit.js"
+  main: "index.js"
