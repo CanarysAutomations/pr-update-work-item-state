@@ -44,9 +44,15 @@ async function getworkitemid (env) {
     const result = await response.json();
     console.log(result);
     var pulldetails = result.body;
-    console.log(pulldetails);
-    var workItemId = pulldetails.substr(4,3);
-    getworkitemandupdate(workItemId,env);
+    
+    if (pulldetails != null)
+    {
+        var workItemId = pulldetails.substr(4,3);
+        getworkitemandupdate(workItemId,env);
+        
+    } else {
+        core.setFailed();
+    }
     
     }
 
