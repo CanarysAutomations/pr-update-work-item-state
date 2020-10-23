@@ -18,9 +18,9 @@
 	},
 	"homepage": "https://github.com/CanarysPlayground/github_customaction#readme",
 	"dependencies": {
-		"@actions/core": "^1.2.3",
+		"@actions/core": "^1.2.6",
 		"@actions/github": "^2.2.0",
-		"azure-devops-node-api": "^10.1.0",
+		"azure-devops-node-api": "^10.1.1",
 		"btoa": "^1.2.1",
 		"is-plain-object": "^5.0.0",
 		"node-fetch": "^2.6.1"

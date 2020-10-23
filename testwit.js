@@ -4,8 +4,7 @@ const core = require(`@actions/core`);
 const github = require(`@actions/github`);
 const fetch = require("node-fetch");
 global.Headers = fetch.Headers;
-const btoa = require('btoa');
-const { CoreApi } = require("azure-devops-node-api/CoreApi");
+
 
 
 main();
