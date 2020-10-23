@@ -106,6 +106,7 @@ function getValuesFromPayload(payload,env)
             ghrepo_owner: env.gh_repo_owner != undefined ? env.gh_repo_owner :"",
             ghrepo: env.gh_repo != undefined ? env.gh_repo :"",
             pull_number: env.pull_number != undefined ? env.pull_number :"",
+            closedstate: env.closedstate != undefined ? env.closedstate :"",
 	        ghtoken: env.gh_token != undefined ? env.gh_token :""
         }
     }
