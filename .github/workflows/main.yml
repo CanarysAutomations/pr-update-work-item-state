@@ -1,0 +1,22 @@
+name: Test Action
+
+on:
+   pull_request:
+    branches: [master]
+    types: [closed]
+
+jobs:
+  alert:
+    runs-on: ubuntu-latest
+    name: Test workflow
+    steps:       
+    - uses: CanarysAutomations/pr-update-work-item-state@master
+      env: 
+        gh_token : '${{ secrets.GH_TOKEN }}'   
+        ado_token: '${{ secrets.ADO_PERSONAL_ACCESS_TOKEN }}'
+        ado_organization: '${{ secrets.ADO_ORGANIZATION }}'
+        ado_project: '${{ secrets.ADO_PROJECT }}'
+        closedstate: 'Done'
+        gh_repo_owner: 'CanarysAutomations'
+        gh_repo: 'TestForGitAction'
+        pull_number: ${{github.event.number}} 
