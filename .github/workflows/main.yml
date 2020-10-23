@@ -1,4 +1,4 @@
-name: Test Action
+name: Update work item state
 
 on:
    pull_request:
