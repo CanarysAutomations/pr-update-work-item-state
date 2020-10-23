@@ -1,6 +1,6 @@
 # Update work item state when PR is merged
 
-Update a Azure DevOps work item's state when the pull request is merged with the master branch
+Update work item state in Azure DevOps when the pull request is merged. 
 
 ## Prerequisites
 
@@ -8,7 +8,7 @@ Update a Azure DevOps work item's state when the pull request is merged with the
 - Azure DevOps PAT
 - GitHub Account
 - GitHub PAT
-- Installation of Azure Boards App and the authorizations enabled to access the required repository
+- [Install and configure Azure Boards app for GitHub](https://docs.microsoft.com/en-us/azure/devops/boards/github/install-github-app?view=azure-devops)
 
 ## Initial Steps
 
