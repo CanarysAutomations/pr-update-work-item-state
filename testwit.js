@@ -44,7 +44,7 @@ async function getworkitemid (env) {
     var pulldetails = result.body;
     console.log(pulldetails);
     var workItemId = pulldetails.substr(4,3);
-    getworkitemandupdate(workItemId,vm.env);
+    getworkitemandupdate(workItemId,env);
     
     }
 
