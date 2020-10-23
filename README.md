@@ -43,6 +43,10 @@ Other Input Parameters
 
    - With the WorkItem and the ADO Project Name, the workitem states associated with the Project are pulled. 
    - At first the check will be done whether the work item is in closed state. If not the workitem state is updated to the next state.
+
+### Linking the WorkItem
+
+The workItem Id must be prefixed with AB and added as AB#[Workitem Id]
    
 ### Sample WorkFlow File 
 
