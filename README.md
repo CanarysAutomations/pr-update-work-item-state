@@ -6,7 +6,7 @@ Update work item state in Azure DevOps :repeat: when the pull request is merged.
 
 ## What Does it do
 
-When a pull request is merged to the target branch, the action will trigger a workflow to update the linked work items state to its next state. For example, if the Work Item's state is in **ToDo**, the work item's state will change to **doing**. The action supports both default and custom process as well.
+When a pull request is merged to the target branch, the action will trigger a workflow to update the linked work items state to its next state. For example, if the Work Item's state is in **ToDo**, the work item's state will change to **doing**. The action supports both default and custom process templates as well.
 
 ## Supported Pull Request :arrows_clockwise: States
 
