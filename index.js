@@ -66,10 +66,19 @@ async function getworkitemandupdate(workItemId,env) {
         console.log("WorkItem Cannot be updated");
 
     } else {
-                let i = 0;
+                var wstateslength = type.states.length;
+                var i;
+    
+                for (i=wstateslength-1;i>=0;i-- )
+                {
+                    if (currentstate == type.states[i].name)
+                    {
+                        var j = i;
+                        var newstate = type.states[++j].name;
+                        
+                    } 
+                }
                 
-                var newstate = type.states[++i].name;    
-
                 let patchDocument = [];
 
                 patchDocument.push({
