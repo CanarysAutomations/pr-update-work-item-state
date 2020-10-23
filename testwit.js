@@ -103,7 +103,6 @@ function getValuesFromPayload(payload,env)
             adoToken: env.ado_token != undefined ? env.ado_token : "",
             project: env.ado_project != undefined ? env.ado_project : "",
             newstate: env.ado_newstate != undefined ? env.ado_newstate : "",
-            wit_id: env.ado_workitemid != undefined ? env.ado_workitemid :"",
             ghrepo_owner: env.gh_repo_owner != undefined ? env.gh_repo_owner :"",
             ghrepo: env.gh_repo != undefined ? env.gh_repo :"",
             pull_number: env.pull_number != undefined ? env.pull_number :"",
