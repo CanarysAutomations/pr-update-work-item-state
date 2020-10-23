@@ -34,34 +34,29 @@ async function getworkitemid (env) {
     let h = new Headers();
     let auth = 'token ' + env.ghtoken;
     h.append ('Authorization', auth );
+    try {
+        const requesturl = "https://api.github.com/repos/"+env.ghrepo_owner+"/"+env.ghrepo+"/pulls/"+env.pull_number;    
+        const response= await fetch (requesturl, {
+            method: 'GET', 
+            headers:h
+        })
+        console.log(requesturl);
+        const result = await response.json();
+        console.log(result);
 
-    const requesturl = "https://api.github.com/repos/"+env.ghrepo_owner+"/"+env.ghrepo+"/pulls/"+env.pull_number;    
-    const response= await fetch (requesturl, {
-        method: 'GET', 
-        headers:h
-    })
-    console.log(requesturl);
-    const result = await response.json();
-    console.log(result);
-    var pulldetails = result.body;
-    
-    if (pulldetails != null)
-    {
+        var pulldetails = result.body;
         var workItemId = pulldetails.substr(4,3);
-
-        if (workItemId != null)
-        {
-            getworkitemandupdate(workItemId,env);
-            
-        } else {
-            core.setFailed();
-        }
-    
-    } else {
+        getworkitemandupdate(workItemId,env);
+    } catch (err){
         core.setFailed();
     }
     
-    }
+    
+}
+    
+    
+    
+    
 
 async function getworkitemandupdate(workItemId,env) {
 		
