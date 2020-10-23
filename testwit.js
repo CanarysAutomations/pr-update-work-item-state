@@ -30,10 +30,10 @@ function main () {
 async function getworkitemid (env) {
 
     let h = new Headers();
-    let auth = 'token ' + env.gh_token;
+    let auth = 'token ' + env.ghtoken;
     h.append ('Authorization', auth );
 
-    const requesturl = "https://api.github.com/repos/"+env.gh_repo_owner+"/"+env.gh_repo+"/pulls/"+env.pull_number;    
+    const requesturl = "https://api.github.com/repos/"+env.ghrepo_owner+"/"+env.ghrepo+"/pulls/"+env.pull_number;    
     const response= await fetch (requesturl, {
         method: 'GET', 
         headers:h
@@ -103,7 +103,6 @@ function getValuesFromPayload(payload,env)
             orgUrl: env.ado_organization != undefined ? "https://dev.azure.com/" + env.ado_organization : "",
             adoToken: env.ado_token != undefined ? env.ado_token : "",
             project: env.ado_project != undefined ? env.ado_project : "",
-            newstate: env.ado_newstate != undefined ? env.ado_newstate : "",
             ghrepo_owner: env.gh_repo_owner != undefined ? env.gh_repo_owner :"",
             ghrepo: env.gh_repo != undefined ? env.gh_repo :"",
             pull_number: env.pull_number != undefined ? env.pull_number :"",
