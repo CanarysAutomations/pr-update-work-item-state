@@ -4,6 +4,7 @@ const github = require(`@actions/github`);
 const fetch = require("node-fetch");
 global.Headers = fetch.Headers;
 const btoa = require('btoa');
+const { CoreApi } = require("azure-devops-node-api/CoreApi");
 
 
 main();
@@ -12,17 +13,26 @@ async function main () {
     const env = process.env
     const context = github.context; 
 
-    //let vm = [];
+    let vm = [];
 
     vm = getValuesFromPayload(github.context.payload,env);
 
-    if(vm.payload.action == "closed")
-    {
-        getworkitemid(env);
-
-    } else {
-        core.SetFailed();
+    switch (vm.action){
+        case "closed":
+            getworkitemid(env);
+            break;
+        case "opened":
+            core.SetFailed();
+            break;
     }
+
+   // if(vm.payload.action == "closed")
+   // {
+   //     getworkitemid(env);
+
+   // } else {
+   //     core.SetFailed();
+  //  }
     
 }
 
