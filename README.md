@@ -69,6 +69,7 @@ on:
 jobs:
   alert:
     runs-on: ubuntu-latest
+    name: Test workflow
     steps:       
     - uses: CanarysAutomations/pr-update-work-item-state@master
       env: 
