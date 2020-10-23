@@ -19,7 +19,7 @@ function main () {
 
    if(vm.action == "closed")
    {
-      getworkitemid(env);
+      getworkitemid(vm.env);
 
    } else {
         core.SetFailed();
