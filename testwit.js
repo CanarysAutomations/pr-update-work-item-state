@@ -56,7 +56,7 @@ async function getworkitemandupdate(workItemId,env) {
     var workitem = await client.getWorkItem(workItemId);
     var currentstate = workitem.fields["System.State"];
     
-    var type = await client.getWorkItemType(project,String (workitem.fields["System.WorkItemType"]));
+    var type = await client.getWorkItemType(env.project,String (workitem.fields["System.WorkItemType"]));
 
 
     if (currentstate == env.closedstate)
