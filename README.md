@@ -52,7 +52,7 @@ The action currently supports **closed** state. Support for other pull request s
 
 ### Link the Work Item
 
-The work Item Id must be prefixed with AB and added as AB#[Workitem Id] in the Pull request body.
+The work Item Id must be prefixed with AB and added as **AB#[Workitem Id]** in the Pull request body.
 
 ![img](./assets/images/pull-request-window.png)
    
