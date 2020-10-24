@@ -57,7 +57,7 @@ async function getworkitemid (env) {
         }
 
     } catch (err){
-        core.setFailed(err);
+        core.setFailed(err.message);
     }
     
     
@@ -120,8 +120,8 @@ async function getworkitemandupdate(workItemId,env) {
 
     } catch (err){
 
-        core.SetFailed(err);
-        
+        core.SetFailed(err.message);
+
     }
 		
 	
