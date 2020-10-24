@@ -65,8 +65,9 @@ async function getworkitemid (env) {
       
 
 async function getworkitemandupdate(workItemId,env) {
-		
-	let authHandler = azdev.getPersonalAccessTokenHandler(env.adoToken);
+
+    try {
+        let authHandler = azdev.getPersonalAccessTokenHandler(env.adoToken);
 	let connection = new azdev.WebApi(env.orgUrl, authHandler);
     let client = await connection.getWorkItemTrackingApi();
     var workitem = await client.getWorkItem(workItemId);
@@ -116,6 +117,14 @@ async function getworkitemandupdate(workItemId,env) {
             }
 
             console.log("Work Item State Updated");
+
+    } catch (err){
+
+        core.SetFailed(err);
+        
+    }
+		
+	
 }
 
 function getValuesFromPayload(payload,env)
