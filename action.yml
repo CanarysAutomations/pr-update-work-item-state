@@ -1,5 +1,5 @@
 name: "Update work item state"
-description: "This action will update work item state in Azure Boards when the PR is merged"
+description: "This action will update work item state in Boards within Azure DevOps when the PR is merged"
 author: "Canarys Automations"
 branding:
   icon: "activity"
