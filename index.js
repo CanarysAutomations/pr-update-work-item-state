@@ -46,17 +46,24 @@ async function getworkitemid (env) {
 
         var pulldetails = result.body;
         var workItemId = pulldetails.substr(4,3);
-        getworkitemandupdate(workItemId,env);
+
+        if (workItemId === null)
+        {
+            core.SetFailed()
+
+        } else {
+
+            getworkitemandupdate(workItemId,env);
+
+        }
+
     } catch (err){
-        core.setFailed();
+        core.setFailed(err);
     }
     
     
 }
-    
-    
-    
-    
+      
 
 async function getworkitemandupdate(workItemId,env) {
 		
