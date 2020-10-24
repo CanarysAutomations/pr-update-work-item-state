@@ -24,7 +24,7 @@ function main () {
       getworkitemid(vm.env);
 
    } else {
-        core.SetFailed();
+        core.setFailed();
    }
     
 }
@@ -47,7 +47,7 @@ async function getworkitemid (env) {
 
         if (workItemId === null)
         {
-            core.setFailed();
+            core.setFailed("Unable to retrieve WorkItemId");
             return;
 
         } else {
