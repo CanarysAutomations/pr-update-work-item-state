@@ -47,7 +47,7 @@ async function getworkitemid (env) {
 
         if (workItemId === null)
         {
-            core.SetFailed()
+            core.setFailed();
             return;
 
         } else {
@@ -67,7 +67,8 @@ async function getworkitemid (env) {
 async function getworkitemandupdate(workItemId,env) {
 
     try {
-        let authHandler = azdev.getPersonalAccessTokenHandler(env.adoToken);
+    
+    let authHandler = azdev.getPersonalAccessTokenHandler(env.adoToken);
 	let connection = new azdev.WebApi(env.orgUrl, authHandler);
     let client = await connection.getWorkItemTrackingApi();
     var workitem = await client.getWorkItem(workItemId);
@@ -120,7 +121,7 @@ async function getworkitemandupdate(workItemId,env) {
 
     } catch (err){
 
-        core.SetFailed(err.message);
+        core.setFailed(err.message);
 
     }
 		
