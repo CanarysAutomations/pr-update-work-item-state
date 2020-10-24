@@ -40,9 +40,7 @@ async function getworkitemid (env) {
             method: 'GET', 
             headers:h
         })
-        console.log(requesturl);
         const result = await response.json();
-        console.log(result);
 
         var pulldetails = result.body;
         var workItemId = pulldetails.substr(4,3);
@@ -50,6 +48,7 @@ async function getworkitemid (env) {
         if (workItemId === null)
         {
             core.SetFailed()
+            return;
 
         } else {
 
