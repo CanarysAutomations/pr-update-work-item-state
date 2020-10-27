@@ -2,7 +2,7 @@ name: Update work item state
 
 on:
    pull_request:
-    branches: [master]
+    branches: [workflow-test]
     types: [closed]
 
 jobs:
@@ -18,5 +18,5 @@ jobs:
         ado_project: '${{ secrets.ADO_PROJECT }}'
         closedstate: 'Done'
         gh_repo_owner: 'CanarysAutomations'
-        gh_repo: 'TestForGitAction'
+        gh_repo: 'pr-update-work-item-state'
         pull_number: ${{github.event.number}} 
