@@ -47,32 +47,31 @@ async function getworkitemid (env) {
         core.setFailed(err);
     }
     try {
-        const newrequesturl = "https://api.github.com/repos/"+env.ghrepo_owner+"/"+env.ghrepo+"/pulls/"+env.pull_number+"/merge";    
-        const pullresponse= await fetch (newrequesturl, {
-            method: 'GET', 
-            headers:h
-        })
+            const newrequesturl = "https://api.github.com/repos/"+env.ghrepo_owner+"/"+env.ghrepo+"/pulls/"+env.pull_number+"/merge";    
+            const pullresponse= await fetch (newrequesturl, {
+                method: 'GET', 
+                headers:h
+            })
 
-        const pullresult = await pullresponse.json();
-        var pullstatus =pullresult.status;
+            var pullstatus =pullresponse.status;
 
-        var workItemId = pulldetails.substr(4,3);
+            var workItemId = pulldetails.substr(4,3);
 
-        if (workItemId === null)
-        {
-            core.setFailed();
-            console.log("unable to find workitem id, please check if workitem is linked to pull request");
-            return;
+            if (workItemId === null)
+            {
+                core.setFailed();
+                console.log("unable to find workitem id, please check if workitem is linked to pull request");
+                return;
 
-        } else {
+            } else {
 
-            updateworkitem(workItemId,env,pullstatus);
+                updateworkitem(workItemId,env,pullstatus);
 
-        }
+            }
 
-    } catch (err){
+        } catch (err){
         core.setFailed(err.message);
-    }
+        }
     
     
 }
