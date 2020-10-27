@@ -22,7 +22,8 @@ function main () {
    if(vm.action == "closed")
    {
     pullstatus = pullrequeststatus(vm.env)
-    getworkitemid(vm.env);
+    console.log(pullstatus);
+    getworkitemid(vm.env,pullstatus);
 
    } else {
         core.setFailed();
@@ -30,7 +31,7 @@ function main () {
     
 }
 
-async function getworkitemid (env) {
+async function getworkitemid (env,pullstatus) {
 
     let h = new Headers();
     let auth = 'token ' + env.ghtoken;
