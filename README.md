@@ -1,6 +1,6 @@
 ![Update work item state](https://github.com/CanarysAutomations/pr-update-work-item-state/workflows/Update%20work%20item%20state/badge.svg)
 
-# Update work item state when PR is merged
+# Update work item state when PR is merged 
 
 Update work item state in Azure DevOps :repeat: when the pull request is merged. 
 
@@ -84,3 +84,4 @@ jobs:
         gh_repo: ''
         pull_number: ${{github.event.number}} 
 ```
+
