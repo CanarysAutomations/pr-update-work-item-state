@@ -6,7 +6,7 @@ const fetch = require("node-fetch");
 global.Headers = fetch.Headers;
 
 
-
+let pullstatus = [];
 main();
 function main () {
   
@@ -21,6 +21,7 @@ function main () {
 
    if(vm.action == "closed")
    {
+    pullstatus = pullrequeststatus(vm.env)
     getworkitemid(vm.env);
 
    } else {
@@ -43,8 +44,6 @@ async function getworkitemid (env) {
         const result = await response.json();
 
         var pulldetails = result.body;
-        
-        var pullstatus = pullrequeststatus(vm.env);
 
         var workItemId = pulldetails.substr(4,3);
 
