@@ -21,7 +21,7 @@ function main () {
 
    if(vm.action == "closed")
    {
-    getpullrequestdetails(vm.env);
+    getworkitemid(vm.env);
 
    } else {
         core.setFailed();
@@ -29,7 +29,7 @@ function main () {
     
 }
 
-async function getpullrequestdetails (env) {
+async function getworkitemid (env) {
 
     let h = new Headers();
     let auth = 'token ' + env.ghtoken;
@@ -43,7 +43,9 @@ async function getpullrequestdetails (env) {
         const result = await response.json();
 
         var pulldetails = result.body;
-        var pullstatus = result.status;
+        
+        pullrequeststatus(env)
+
         var workItemId = pulldetails.substr(4,3);
 
         if (workItemId === null)
@@ -64,7 +66,27 @@ async function getpullrequestdetails (env) {
     
     
 }
-      
+
+async function pullrequeststatus(env){
+
+    let head = new Headers();
+    let secondauth = 'token ' + env.ghtoken;
+    head.append ('Authorization', secondauth );
+    try {
+        const newrequesturl = "https://api.github.com/repos/"+env.ghrepo_owner+"/"+env.ghrepo+"/pulls/"+env.pull_number+"/merge";    
+        const pullresponse= await fetch (newrequesturl, {
+            method: 'GET', 
+            headers:head
+        })
+        const pullresult = await pullresponse.json();
+        var pullstatus =pullresult.status;
+        return pullstatus;
+        
+    } catch(err){
+        core.setFailed();
+    }
+
+}
 
 async function updateworkitem(workItemId,env,pullstatus) {
 
