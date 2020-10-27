@@ -44,7 +44,7 @@ async function getworkitemid (env) {
 
         var pulldetails = result.body;
         
-        pullrequeststatus(env)
+        var pullstatus = pullrequeststatus(env)
 
         var workItemId = pulldetails.substr(4,3);
 
@@ -81,7 +81,7 @@ async function pullrequeststatus(env){
         const pullresult = await pullresponse.json();
         var pullstatus =pullresult.status;
         return pullstatus;
-        
+
     } catch(err){
         core.setFailed();
     }
