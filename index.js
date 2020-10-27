@@ -44,7 +44,7 @@ async function getworkitemid (env) {
 
         var pulldetails = result.body;
         
-        var pullstatus = pullrequeststatus(env)
+        var pullstatus = pullrequeststatus(vm.env);
 
         var workItemId = pulldetails.substr(4,3);
 
