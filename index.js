@@ -75,7 +75,7 @@ async function updateworkitem(workItemId,env,pullstatus) {
     let client = await connection.getWorkItemTrackingApi();
     var workitem = await client.getWorkItem(workItemId);
 
-    var currentdescr = String (workitem.fields["System.description"]);
+    var currentdescr = String (workitem.fields["System.Description"]);
     var currentstate = workitem.fields["System.State"];
     
     var type = await client.getWorkItemType(env.project,String (workitem.fields["System.WorkItemType"]));
