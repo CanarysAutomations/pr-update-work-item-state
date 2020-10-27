@@ -20,9 +20,7 @@ function main () {
 
    if(vm.action == "closed")
    {
-
-    getworkitemid(vm.env);
-
+    	getworkitemid(vm.env);
    } else {
         core.setFailed();
    }
@@ -35,17 +33,17 @@ async function getworkitemid (env) {
     let auth = 'token ' + env.ghtoken;
     h.append ('Authorization', auth );
     try {
-        const requesturl = "https://api.github.com/repos/"+env.ghrepo_owner+"/"+env.ghrepo+"/pulls/"+env.pull_number;    
-        const response= await fetch (requesturl, {
-            method: 'GET', 
-            headers:h
-        })
-        const result = await response.json();
+            const requesturl = "https://api.github.com/repos/"+env.ghrepo_owner+"/"+env.ghrepo+"/pulls/"+env.pull_number;    
+            const response= await fetch (requesturl, {
+               method: 'GET', 
+               headers:h
+             })
+            const result = await response.json();
 
-        var pulldetails = result.body;
-    }catch (err){
-        core.setFailed(err);
-    }
+            var pulldetails = result.body;
+        } catch (err){
+            core.setFailed(err);
+        }
     try {
             const newrequesturl = "https://api.github.com/repos/"+env.ghrepo_owner+"/"+env.ghrepo+"/pulls/"+env.pull_number+"/merge";    
             const pullresponse= await fetch (newrequesturl, {
@@ -64,63 +62,50 @@ async function getworkitemid (env) {
                 return;
 
             } else {
-
                 updateworkitem(workItemId,env,pullstatus);
-
             }
 
         } catch (err){
-        core.setFailed(err.message);
-        }
-    
-    
+            core.setFailed(err.message);
+        }   
 }
 
 async function updateworkitem(workItemId,env,pullstatus) {
 
     try {
     
-    let authHandler = azdev.getPersonalAccessTokenHandler(env.adoToken);
-	let connection = new azdev.WebApi(env.orgUrl, authHandler);
-    let client = await connection.getWorkItemTrackingApi();
-    var workitem = await client.getWorkItem(workItemId);
-
-    var currentdescr = String (workitem.fields["System.Description"]);
-    var currentstate = workitem.fields["System.State"];
+    	  let authHandler = azdev.getPersonalAccessTokenHandler(env.adoToken);
+    	  let connection = new azdev.WebApi(env.orgUrl, authHandler);
+          let client = await connection.getWorkItemTrackingApi();
+          var workitem = await client.getWorkItem(workItemId);
+    	  var currentdescr = String (workitem.fields["System.Description"]);
+          var currentstate = workitem.fields["System.State"];
     
-    var type = await client.getWorkItemType(env.project,String (workitem.fields["System.WorkItemType"]));
+          var type = await client.getWorkItemType(env.project,String (workitem.fields["System.WorkItemType"]));
 
-
-    if (currentstate == env.closedstate)
-    {
-        console.log("WorkItem Cannot be updated");
-        core.setFailed();
-
-    } else {
-                var wstateslength = type.states.length;
-                var i;
-    
-                for (i=wstateslength-1;i>=0;i-- )
-                {
-                    if (currentstate == type.states[i].name)
-                    {
-                        var j = i;
-                        var newstate = type.states[++j].name;
-                        
-                    } 
+          if (currentstate == env.closedstate)
+          {
+               console.log("WorkItem Cannot be updated");
+               core.setFailed();
+    	  } else {
+               var wstateslength = type.states.length;
+               var i;
+               for (i=wstateslength-1;i>=0;i-- )
+               {
+                   if (currentstate == type.states[i].name)
+                   {
+                       var j = i;
+                       var newstate = type.states[++j].name;             
+                   } 
                 }
                 
                 let workItemSaveResult = null;
-
                 let mergestatus = [];
                 let newdescription = [];
-
                 if (pullstatus == "204"){
-                
-                mergestatus = "Linked Pull Request merge is successful";
-                newdescription = currentdescr + "<br />" + mergestatus;
-                
-                
+			
+                    mergestatus = "Linked Pull Request merge is successful";
+                    newdescription = currentdescr + "<br />" + mergestatus;               
                     let patchDocument = [
                         {
                             op: "add",
@@ -134,17 +119,17 @@ async function updateworkitem(workItemId,env,pullstatus) {
                         }
                     ];
 
-                workItemSaveResult = await client.updateWorkItem(
-                        (customHeaders = []),
-                        (document = patchDocument),
-                        (id = workItemId),
-                        (project = env.project),
-                        (validateOnly = false)
-                        );
+                    workItemSaveResult = await client.updateWorkItem(
+                           (customHeaders = []),
+                           (document = patchDocument),
+                           (id = workItemId),
+                           (project = env.project),
+                           (validateOnly = false)
+                          );
                         
-                return workItemSaveResult;
+                   return workItemSaveResult;
 
-                } else if (pullstatus == "404"){
+                 } else if (pullstatus == "404"){
 
                     mergestatus = "Pull Request closed without merge";
                     newdescription = currentdescr + "<br />" + mergestatus;
@@ -209,12 +194,8 @@ async function updateworkitem(workItemId,env,pullstatus) {
             console.log("Work Item State Updated");
 
     } catch (err){
-
         core.setFailed(err.message);
-
-    }
-		
-	
+    }	
 }
 
 function getValuesFromPayload(payload,env)
@@ -231,7 +212,7 @@ function getValuesFromPayload(payload,env)
             ghrepo: env.gh_repo != undefined ? env.gh_repo :"",
             pull_number: env.pull_number != undefined ? env.pull_number :"",
             closedstate: env.closedstate != undefined ? env.closedstate :"",
-	        ghtoken: env.gh_token != undefined ? env.gh_token :""
+	    ghtoken: env.gh_token != undefined ? env.gh_token :""
         }
     }
 
