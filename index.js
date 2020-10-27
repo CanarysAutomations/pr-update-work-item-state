@@ -6,7 +6,6 @@ const fetch = require("node-fetch");
 global.Headers = fetch.Headers;
 
 
-let pullstatus = [];
 main();
 function main () {
   
@@ -21,9 +20,8 @@ function main () {
 
    if(vm.action == "closed")
    {
-    pullstatus = pullrequeststatus(vm.env)
-    console.log(pullstatus);
-    getworkitemid(vm.env,pullstatus);
+
+    getworkitemid(vm.env);
 
    } else {
         core.setFailed();
@@ -31,7 +29,7 @@ function main () {
     
 }
 
-async function getworkitemid (env,pullstatus) {
+async function getworkitemid (env) {
 
     let h = new Headers();
     let auth = 'token ' + env.ghtoken;
@@ -45,6 +43,18 @@ async function getworkitemid (env,pullstatus) {
         const result = await response.json();
 
         var pulldetails = result.body;
+    }catch (err){
+        core.setFailed(err);
+    }
+    try {
+        const newrequesturl = "https://api.github.com/repos/"+env.ghrepo_owner+"/"+env.ghrepo+"/pulls/"+env.pull_number+"/merge";    
+        const pullresponse= await fetch (newrequesturl, {
+            method: 'GET', 
+            headers:h
+        })
+
+        const pullresult = await pullresponse.json();
+        var pullstatus =pullresult.status;
 
         var workItemId = pulldetails.substr(4,3);
 
@@ -65,27 +75,6 @@ async function getworkitemid (env,pullstatus) {
     }
     
     
-}
-
-async function pullrequeststatus(env){
-
-    let head = new Headers();
-    let secondauth = 'token ' + env.ghtoken;
-    head.append ('Authorization', secondauth );
-    try {
-        const newrequesturl = "https://api.github.com/repos/"+env.ghrepo_owner+"/"+env.ghrepo+"/pulls/"+env.pull_number+"/merge";    
-        const pullresponse= await fetch (newrequesturl, {
-            method: 'GET', 
-            headers:head
-        })
-        const pullresult = await pullresponse.json();
-        var pullstatus =pullresult.status;
-        return pullstatus;
-
-    } catch(err){
-        core.setFailed();
-    }
-
 }
 
 async function updateworkitem(workItemId,env,pullstatus) {
