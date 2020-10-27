@@ -21,7 +21,7 @@ function main () {
 
    if(vm.action == "closed")
    {
-      getworkitemid(vm.env);
+    getpullrequestdetails(vm.env);
 
    } else {
         core.setFailed();
@@ -29,7 +29,7 @@ function main () {
     
 }
 
-async function getworkitemid (env) {
+async function getpullrequestdetails (env) {
 
     let h = new Headers();
     let auth = 'token ' + env.ghtoken;
@@ -43,16 +43,18 @@ async function getworkitemid (env) {
         const result = await response.json();
 
         var pulldetails = result.body;
+        var pullstatus = result.status;
         var workItemId = pulldetails.substr(4,3);
 
         if (workItemId === null)
         {
-            core.setFailed("Unable to retrieve WorkItemId");
+            core.setFailed();
+            console.log("unable to find workitem id, please check if workitem is linked to pull request");
             return;
 
         } else {
 
-            getworkitemandupdate(workItemId,env);
+            updateworkitem(workItemId,env,pullstatus);
 
         }
 
@@ -64,7 +66,7 @@ async function getworkitemid (env) {
 }
       
 
-async function getworkitemandupdate(workItemId,env) {
+async function updateworkitem(workItemId,env,pullstatus) {
 
     try {
     
@@ -72,6 +74,8 @@ async function getworkitemandupdate(workItemId,env) {
 	let connection = new azdev.WebApi(env.orgUrl, authHandler);
     let client = await connection.getWorkItemTrackingApi();
     var workitem = await client.getWorkItem(workItemId);
+
+    var currentdescr = String (workitem.fields["System.description"]);
     var currentstate = workitem.fields["System.State"];
     
     var type = await client.getWorkItemType(env.project,String (workitem.fields["System.WorkItemType"]));
@@ -80,6 +84,7 @@ async function getworkitemandupdate(workItemId,env) {
     if (currentstate == env.closedstate)
     {
         console.log("WorkItem Cannot be updated");
+        core.setFailed();
 
     } else {
                 var wstateslength = type.states.length;
@@ -95,16 +100,30 @@ async function getworkitemandupdate(workItemId,env) {
                     } 
                 }
                 
-                let patchDocument = [];
-
-                patchDocument.push({
-                        op: "add",
-                        path: "/fields/System.State",
-                        value: newstate
-                    });
-
                 let workItemSaveResult = null;
+
+                let mergestatus = [];
+                let newdescription = [];
+
+                if (pullstatus == "204"){
                 
+                mergestatus = "Linked Pull Request merge is successful";
+                newdescription = currentdescr + "<br />" + mergestatus;
+                
+                
+                    let patchDocument = [
+                        {
+                            op: "add",
+                            path: "/fields/System.State",
+                            value: newstate
+                        },
+                        {
+                            op: "add",
+                            path: "/fields/System.Description",
+                            value: newdescription
+                        }
+                    ];
+
                 workItemSaveResult = await client.updateWorkItem(
                         (customHeaders = []),
                         (document = patchDocument),
@@ -114,6 +133,66 @@ async function getworkitemandupdate(workItemId,env) {
                         );
                         
                 return workItemSaveResult;
+
+                } else if (pullstatus == "404"){
+
+                    mergestatus = "Pull Request closed without merge";
+                    newdescription = currentdescr + "<br />" + mergestatus;
+
+                    let patchDocument = [
+                        {
+                            op: "add",
+                            path: "/fields/System.State",
+                            value: currentstate
+                        },
+                        {
+                            op: "add",
+                            path: "/fields/System.Description",
+                            value: newdescription
+                        }
+                    ];
+
+                    let workItemSaveResult = null;
+                
+                    workItemSaveResult = await client.updateWorkItem(
+                            (customHeaders = []),
+                            (document = patchDocument),
+                            (id = workItemId),
+                            (project = env.project),
+                            (validateOnly = false)
+                            );
+                    
+                    return workItemSaveResult;
+                    
+                    } else {
+
+                        mergestatus = "Unable to get pull request details";
+                        newdescription = currentdescr + "<br />" + mergestatus;
+
+                        let patchDocument = [
+                            {
+                                op: "add",
+                                path: "/fields/System.State",
+                                value: currentstate
+                            },
+                            {
+                                op: "add",
+                                path: "/fields/System.Description",
+                                value: newdescription
+                            }
+                        ];
+    
+                        let workItemSaveResult = null;
+                    
+                        workItemSaveResult = await client.updateWorkItem(
+                                (customHeaders = []),
+                                (document = patchDocument),
+                                (id = workItemId),
+                                (project = env.project),
+                                (validateOnly = false)
+                                );
+                        return workItemSaveResult;
+                    }
                 
             }
 

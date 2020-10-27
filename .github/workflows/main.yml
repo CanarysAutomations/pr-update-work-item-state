@@ -2,7 +2,7 @@ name: Update work item state
 
 on:
    pull_request:
-    branches: [master]
+    branches: [workflow-test]
     types: [closed]
 
 jobs:
