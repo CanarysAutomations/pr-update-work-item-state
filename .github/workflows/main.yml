@@ -2,7 +2,7 @@ name: Update work item state
 
 on:
    pull_request:
-    branches: [master]
+    branches: [workflow_test]
     types: [closed]
 
 jobs:
@@ -10,7 +10,7 @@ jobs:
     runs-on: ubuntu-latest
     name: Test workflow
     steps:       
-    - uses: CanarysAutomations/pr-update-work-item-state@master
+    - uses: CanarysAutomations/pr-update-work-item-state@workflow_test
       env: 
         gh_token : '${{ secrets.GH_TOKEN }}'   
         ado_token: '${{ secrets.ADO_PERSONAL_ACCESS_TOKEN }}'
