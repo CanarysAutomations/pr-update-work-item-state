@@ -127,7 +127,7 @@ async function updateworkitem(workItemId,env,pullstatus) {
                            (project = env.project),
                            (validateOnly = false)
                           );
-                   console.log(workItemId + " state is updated to " + newstate);         
+                   console.log("Work Item " + workItemId + " state is updated to " + newstate);         
                    return workItemSaveResult;
 
                  } else if (pullstatus == "404"){
@@ -158,7 +158,7 @@ async function updateworkitem(workItemId,env,pullstatus) {
                             (validateOnly = false)
                             );
                     
-                    console.log(workItemId + " state is not updated");        
+                    console.log("Work Item " + workItemId + " state is not updated");        
                     return workItemSaveResult;
                     
                     } else {
