@@ -32,7 +32,7 @@ async function getworkitemid (env) {
     let h = new Headers();
     let auth = 'token ' + env.ghtoken;
     h.append ('Authorization', auth );
-    try {
+    try {   
             const requesturl = "https://api.github.com/repos/"+env.ghrepo_owner+"/"+env.ghrepo+"/pulls/"+env.pull_number;    
             const response= await fetch (requesturl, {
                method: 'GET', 
@@ -41,6 +41,9 @@ async function getworkitemid (env) {
             const result = await response.json();
 
             var pulldetails = result.body;
+
+            var workItemId = pulldetails.substr(4,3);
+
         } catch (err){
             core.setFailed(err);
         }
@@ -53,12 +56,10 @@ async function getworkitemid (env) {
 
             var pullstatus =pullresponse.status;
 
-            var workItemId = pulldetails.substr(4,3);
-
             if (workItemId === null)
             {
                 core.setFailed();
-                console.log("unable to find workitem id, please check if workitem is linked to pull request");
+                console.log("unable to find workitem id, please check if a workitem is linked to pull request");
                 return;
 
             } else {
@@ -126,7 +127,7 @@ async function updateworkitem(workItemId,env,pullstatus) {
                            (project = env.project),
                            (validateOnly = false)
                           );
-                        
+                   console.log(workItemId + " state is updated to " + newstate);         
                    return workItemSaveResult;
 
                  } else if (pullstatus == "404"){
@@ -157,6 +158,7 @@ async function updateworkitem(workItemId,env,pullstatus) {
                             (validateOnly = false)
                             );
                     
+                    console.log(workItemId + " state is not updated");        
                     return workItemSaveResult;
                     
                     } else {
@@ -186,6 +188,7 @@ async function updateworkitem(workItemId,env,pullstatus) {
                                 (project = env.project),
                                 (validateOnly = false)
                                 );
+                        console.log(mergestatus);
                         return workItemSaveResult;
                     }
                 
