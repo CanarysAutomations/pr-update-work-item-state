@@ -83,6 +83,6 @@ jobs:
         closedstate: ''
         gh_repo_owner: ''
         gh_repo: ''
-        pull_number: ${{github.event.number}} 
+        pull_number: '${{github.event.number}}' 
 ```
 
